@@ -1,6 +1,12 @@
 package com.ex01.c4.security;
 
 import static com.ex01.c4.security.Constants.LOGIN_URL;
+import static com.ex01.c4.security.Constants.PIEZAS_URL;
+import static com.ex01.c4.security.Constants.PROVEEDOR_URL;
+import static com.ex01.c4.security.Constants.SUMINISTRA_URL;
+
+import static com.ex01.c4.security.Constants.ROLE_ADMIN;
+import static com.ex01.c4.security.Constants.ROLE_STANDARD;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,16 +50,21 @@ public class WebSecurity{
 			httpSecurity
 				.csrf().disable()
 				.authorizeHttpRequests((authz) -> authz
-				.requestMatchers(HttpMethod.POST, LOGIN_URL).permitAll()
+				.requestMatchers(HttpMethod.GET, LOGIN_URL).permitAll()
+				.requestMatchers(HttpMethod.GET, "/users/{username}").hasRole(ROLE_ADMIN)
+				.requestMatchers(HttpMethod.POST, "/users/").hasRole(ROLE_ADMIN)
+				.requestMatchers(HttpMethod.GET, "/api/**").hasRole(ROLE_STANDARD)
+				.requestMatchers(HttpMethod.POST, "/api/**").hasRole(ROLE_STANDARD)
 				.anyRequest().authenticated().and()
 					.addFilter(new JWTAuthenticationFilter(authenticationManager))
 					.addFilter(new JWTAuthorizationFilter(authenticationManager))
 				
 				)
-				.httpBasic()
-				.and()
 				.sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.and()
+				.httpBasic()
+				;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
