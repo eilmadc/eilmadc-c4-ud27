@@ -1,5 +1,5 @@
 use data;
-DROP TABLE IF EXISTS users_roles;
+DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS suministra;
@@ -10,12 +10,13 @@ DROP TABLE IF EXISTS proveedores;
 CREATE TABLE users(
 	id int NOT NULL AUTO_INCREMENT,
 	username char(15) DEFAULT NULL,
+	email char(15) DEFAULT NULL,
 	password char(254) DEFAULT NULL,
 	rol char(15) DEFAULT NULL,
 	PRIMARY KEY(id)
 );
 
-INSERT INTO users (username, password,rol) VALUES('elena','$2a$10$YaDn67aiuREW5yz39IWC1eNpdg2aPLPUJ8jjxvCcca4vUOhZlEbLK','admin');
+INSERT INTO users (username, email, password,rol) VALUES('elena', elena@elena.es, '$2a$10$YaDn67aiuREW5yz39IWC1eNpdg2aPLPUJ8jjxvCcca4vUOhZlEbLK','admin');
 
 /* Tabla de roles */
 CREATE TABLE roles (
@@ -26,17 +27,17 @@ CREATE TABLE roles (
 
 INSERT INTO roles (rol) VALUES('admin'),('manager'),('techical'),('user');
 
-/* Tabla de usuario_rol */
-CREATE TABLE users_roles (
+/* Tabla de usuario_rol 
+CREATE TABLE user_roles (
  	id int NOT NULL AUTO_INCREMENT,
 	user_id int,
-	rol_id int,
+	role_id int,
 	PRIMARY KEY(id),
 	FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
-	FOREIGN KEY (rol_id) REFERENCES roles (id) ON DELETE CASCADE ON UPDATE CASCADE
-);
+	FOREIGN KEY (role_id) REFERENCES roles (id) ON DELETE CASCADE ON UPDATE CASCADE
+);*/
 
-INSERT INTO users_roles (user_id,rol_id) VALUES (1,2),(1,4),(1,3);
+INSERT INTO user_roles (user_id,role_id) VALUES (1,2),(1,4),(1,3);
 
 
 CREATE TABLE piezas (
