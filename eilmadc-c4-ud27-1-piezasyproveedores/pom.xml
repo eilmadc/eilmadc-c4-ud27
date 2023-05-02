@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>c4.ud27</groupId>
-	<artifactId>eilmadc-c4-ud27-1-tiendadeinformatica</artifactId>
+	<artifactId>eilmadc-c4-ud27-1-piezasyproveedores</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>eilmadc-c4-ud27-1-tiendadeinformatica</name>
+	<name>eilmadc-c4-ud27-1-piezasyproveedores</name>
 	<description>SafeIn Backend Project</description>
 	<properties>
 		<java.version>17</java.version>

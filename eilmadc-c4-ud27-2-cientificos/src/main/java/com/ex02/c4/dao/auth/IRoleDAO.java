@@ -3,6 +3,8 @@
  */
 package com.ex02.c4.dao.auth;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.ex02.c4.dto.auth.*;
@@ -12,5 +14,6 @@ import com.ex02.c4.dto.auth.*;
  *
  */
 public interface IRoleDAO extends JpaRepository<Role, Integer>{
-	Role findByRole(ERole name);
+
+	Optional<Role> findByName(ERole name);
 }

@@ -9,21 +9,22 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>c4.ud27</groupId>
-	<artifactId>eilmadc-c4-ud27-2-empleados</artifactId>
+	<artifactId>eilmadc-c4-ud27-2-cientificos</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>eilmadc-c4-ud27-2-empleados</name>
-	<description>SafeIn Backend Project</description>
+	<name>eilmadc-c4-ud27-2-cientificos</name>
+	<description></description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-				<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
+		<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
 		<dependency>
   			  <groupId>io.jsonwebtoken</groupId>
   			  <artifactId>jjwt</artifactId>
   			  <version>0.9.1</version>
   		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -43,11 +44,11 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
-<dependency>
-	<groupId>mysql</groupId>
-	<artifactId>mysql-connector-java</artifactId>
-	<scope>runtime</scope>
-</dependency>
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
@@ -63,6 +64,7 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
 	</dependencies>
 
 	<build>

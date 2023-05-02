@@ -13,6 +13,8 @@ import jakarta.persistence.*;
  * @author elena-01
  *
  */
+@Entity
+@Table(name = "users")
 public class User {
 
 	// ---------- Attributes ----------
@@ -35,25 +37,22 @@ public class User {
 
 	// ---------- Constructors ----------
 
-	public User() {
-
-	}
-
-	/**
-	 * @param id
-	 * @param username
-	 * @param email
-	 * @param password
-	 * @param userrol
-	 */
-	public User(Long id, String username, String email, String password, List<UserRol> userrol) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.email = email;
-		this.password = password;
-		this.userrol = userrol;
-	}
+	/*
+	 * public User() {
+	 * 
+	 * }
+	 * 
+	 *//**
+		 * @param id
+		 * @param username
+		 * @param email
+		 * @param password
+		 * @param userrol
+		 *//*
+			 * public User(Long id, String username, String email, String password,
+			 * List<UserRol> userrol) { super(); this.id = id; this.username = username;
+			 * this.email = email; this.password = password; this.userrol = userrol; }
+			 */
 
 	// ---------- Getters and Setters ----------
 
@@ -123,7 +122,7 @@ public class User {
 	/**
 	 * @param userrol the userrol to set
 	 */
-	@JsonIgnore 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "UserRol")
 	public void setUserrol(List<UserRol> userrol) {
 		this.userrol = userrol;

@@ -13,7 +13,7 @@ CREATE TABLE users(
 	PRIMARY KEY(id)
 );
 
-INSERT INTO users (username, email, password,rol) VALUES('elena', elena@elena.es, '$2a$10$YaDn67aiuREW5yz39IWC1eNpdg2aPLPUJ8jjxvCcca4vUOhZlEbLK','admin');
+INSERT INTO users (username, email, password,rol) VALUES('elena', elena@elena.es, '$2a$10$YaDn67aiuREW5yz39IWC1eNpdg2aPLPUJ8jjxvCcca4vUOhZlEbLK','ROLE_ADMIN');
 
 /* Tabla de roles */
 CREATE TABLE roles (
@@ -22,7 +22,7 @@ CREATE TABLE roles (
     PRIMARY KEY(id)
 );
 
-INSERT INTO roles (rol) VALUES('admin'),('manager'),('techical'),('user');
+INSERT INTO roles (rol) VALUES('ROLE_ADMIN'),('ROLE_MODERATOR'),('ROLE_USER');
 
 /* Tabla de usuario_rol 
 CREATE TABLE user_roles (

@@ -3,19 +3,23 @@
  */
 package com.ex02.c4.security;
 
-import org.springframework.beans.factory.annotation.*;
+import static com.ex01.c4.security.Constants.LOGIN_URL;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.ex02.c4.security.jwt.AuthEntryPointJwt;
 import com.ex02.c4.security.jwt.AuthTokenFilter;
@@ -27,7 +31,8 @@ import com.ex02.c4.security.services.UserDetailsServiceImpl;
  */
 
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig {
 
 	@Autowired
@@ -63,24 +68,17 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		
-		 http
-         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-         .and()
-         .cors()
-         .and()
-         .csrf().disable()
-         .exceptionHandling()
-         .and()
-         .authorizeHttpRequests()
-             .requestMatchers(HttpMethod.POST, "/register").permitAll()
-             .requestMatchers(HttpMethod.POST, "/login").permitAll()
-             .anyRequest().authenticated()
-             .and()
-             .authenticationProvider(authenticationProvider())
-             .addFilterBefore(authenticationJwtTokenFilter(),UsernamePasswordAuthenticationFilter.class);
-		 
 
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+				.cors().and()
+				.csrf().disable().exceptionHandling().and()
+				.authorizeHttpRequests()
+				.requestMatchers(HttpMethod.GET,"/signin").permitAll()
+				.requestMatchers(HttpMethod.POST, "/register").permitAll()
+				.requestMatchers(HttpMethod.POST, "/signin").permitAll()
+				.anyRequest().authenticated().and()
+				.authenticationProvider(authenticationProvider())
+				.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
 	}

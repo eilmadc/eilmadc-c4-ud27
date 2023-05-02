@@ -5,6 +5,8 @@ package com.ex02.c4.dto.auth;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 /**
@@ -51,7 +53,6 @@ public class Role {
 	 * @param name
 	 */
 	public Role(Integer id, ERole name) {
-		super();
 		this.id = id;
 		this.name = name;
 	}
@@ -82,6 +83,8 @@ public class Role {
 	/**
 	 * @param name the name to set
 	 */
+	@JsonIgnore 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "UserRol")
 	public void setName(ERole name) {
 		this.name = name;
 	}

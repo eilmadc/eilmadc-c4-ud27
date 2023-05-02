@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.ex02.c4.dto.auth.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class UserDetailsImpl implements UserDetailsService {
+public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
@@ -44,15 +44,9 @@ public class UserDetailsImpl implements UserDetailsService {
 
 	public static UserDetailsImpl build(User user) {
 		List<GrantedAuthority> authorities = user.getUserrol().stream()
-				.map(role -> new SimpleGrantedAuthority(role.getRol().getName())
-				.collect(Collectors.toList());
+				.map(role -> new SimpleGrantedAuthority(role.getRol().getName().name())).collect(Collectors.toList());
 
-		return new UserDetailsImpl(
-				user.getId(), 
-				user.getUsername(), 
-				user.getEmail(),
-				user.getPassword(), 
-				authorities);
+		return new UserDetailsImpl(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), authorities);
 	}
 
 	@Override
@@ -68,27 +62,22 @@ public class UserDetailsImpl implements UserDetailsService {
 		return email;
 	}
 
-	@Override
 	public String getPassword() {
 		return password;
 	}
 
-	@Override
 	public String getUsername() {
 		return username;
 	}
 
-	@Override
 	public boolean isAccountNonExpired() {
 		return true;
 	}
 
-	@Override
 	public boolean isAccountNonLocked() {
 		return true;
 	}
 
-	@Override
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
@@ -108,10 +97,4 @@ public class UserDetailsImpl implements UserDetailsService {
 		return Objects.equals(id, user.id);
 	}
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
-
