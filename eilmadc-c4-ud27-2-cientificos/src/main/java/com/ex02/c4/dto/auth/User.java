@@ -4,6 +4,7 @@
 package com.ex02.c4.dto.auth;
 
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -37,24 +38,34 @@ public class User {
 
 	// ---------- Constructors ----------
 
-	/*
-	 * public User() {
-	 * 
-	 * }
-	 * 
-	 *//**
-		 * @param id
-		 * @param username
-		 * @param email
-		 * @param password
-		 * @param userrol
-		 *//*
-			 * public User(Long id, String username, String email, String password,
-			 * List<UserRol> userrol) { super(); this.id = id; this.username = username;
-			 * this.email = email; this.password = password; this.userrol = userrol; }
-			 */
+	public User() {
+
+	}
+
+	/**
+	 * @param id
+	 * @param username
+	 * @param email
+	 * @param password
+	 * @param userrol
+	 */
+	public User(Long id, String username, String email, String password, List<UserRol> userrol) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.userrol = userrol;
+	}
 
 	// ---------- Getters and Setters ----------
+
+	public User(String username, String email, String password) {
+		// TODO Auto-generated constructor stub
+		this.username = username;
+		this.email = email;
+		this.password = password;
+	}
 
 	/**
 	 * @return the id

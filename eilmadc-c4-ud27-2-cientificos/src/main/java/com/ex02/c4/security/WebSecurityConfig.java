@@ -3,7 +3,6 @@
  */
 package com.ex02.c4.security;
 
-import static com.ex01.c4.security.Constants.LOGIN_URL;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

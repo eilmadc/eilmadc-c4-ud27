@@ -33,25 +33,76 @@ public class User {
 	private String username;
 	@Column(name = "password")
 	private String password;
+	@Column(name = "email")
+	private String email;
 	@Column(name = "rol")
 	private String rol;
-	/*
-	 * @OneToMany
-	 * 
-	 * @JoinColumn(name = "id") private List<UserRol> userrol;
-	 * 
-	 * // Constructores
-	 * 
-	 *//**
-		 * @param id
-		 * @param username
-		 * @param password
-		 * @param userrol
-		 *//*
-			 * public User(int id, String username, String password, List<UserRol> userrol)
-			 * { super(); this.id = id; this.username = username; this.password = password;
-			 * this.userrol = userrol; }
-			 */
+
+	@OneToMany
+
+	@JoinColumn(name = "id")
+	private List<UserRol> userrol;
+
+	// Constructores
+
+	/**
+	 * @param id
+	 * @param username
+	 * @param password
+	 * @param userrol
+	 */
+	public User(int id, String username, String email, String password, List<UserRol> userrol) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.email=email;
+		this.userrol = userrol;
+	}
+
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	/**
+	 * @return the rol
+	 */
+	public String getRol() {
+		return rol;
+	}
+
+	/**
+	 * @param rol the rol to set
+	 */
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
+
+	/**
+	 * @return the userrol
+	 */
+	public List<UserRol> getUserrol() {
+		return userrol;
+	}
+
+	/**
+	 * @param userrol the userrol to set
+	 */
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "UserRol")
+	public void setUserrol(List<UserRol> userrol) {
+		this.userrol = userrol;
+	}
 
 	// Getters y Setters
 	/**

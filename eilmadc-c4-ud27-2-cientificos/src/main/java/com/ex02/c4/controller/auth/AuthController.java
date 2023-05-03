@@ -3,7 +3,9 @@
  */
 package com.ex02.c4.controller.auth;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ex02.c4.dao.auth.IRoleDAO;
 import com.ex02.c4.dao.auth.IUserDAO;
 import com.ex02.c4.dto.auth.ERole;
+import com.ex02.c4.dto.auth.Role;
 import com.ex02.c4.dto.auth.User;
 import com.ex02.c4.security.jwt.JwtUtils;
 import com.ex02.c4.security.services.UserDetailsImpl;
@@ -59,7 +61,7 @@ public class AuthController {
 	JwtUtils jwtUtils;
 
 	@PostMapping("/signin")
-	public ResponseEntity<?> authenticateUser(@Validated @RequestBody User user) {
+	public ResponseEntity<?> authenticateUser(@RequestBody User user) {
 
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
@@ -76,7 +78,7 @@ public class AuthController {
 	}
 	
 	@PostMapping("/signup")
-	  public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+	  public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
 	    if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 	      return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
 	    }
@@ -120,7 +122,7 @@ public class AuthController {
 	      });
 	    }
 
-	    user.setRoles(roles);
+	    user.getUserrol();
 	    userRepository.save(user);
 
 	    return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
